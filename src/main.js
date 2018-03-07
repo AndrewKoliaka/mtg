@@ -4,11 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase'
+import store from './store'
 import './assets/style.scss'
 
 Vue.config.productionTip = false
-
-let app
 
 const config = {
   apiKey: 'AIzaSyBtF25eX_bIre9EcrsbzhsEh5leAVZd3CA',
@@ -20,15 +19,12 @@ const config = {
 }
 
 firebase.initializeApp(config)
-firebase.auth().onAuthStateChanged(user => {
-  if (!app) {
-    app = new Vue({
-      el: '#app',
-      router,
-      components: { App },
-      template: '<App/>'
-    })
-  }
-})
 
-/* eslint-disable no-new */
+// eslint-disable-next-line
+new Vue({
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>'
+})

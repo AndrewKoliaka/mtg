@@ -17,14 +17,14 @@
             <label for="password-input">Password</label>
           </div>
         </div>
-        <div v-if="errorMessage" class="row">
+        <div v-if="formError" class="row">
           <div class="red-text">
-            {{errorMessage}}
+            {{formError}}
           </div>
         </div>
         <div class="row">
-          <button class="waves-effect waves-light btn left" @click.prevent="login">Login</button>
-          <button class="waves-effect waves-light btn right" @click.prevent="register">Register</button>
+          <button class="waves-effect waves-light btn left" @click.prevent="signIn">Login</button>
+          <button class="waves-effect waves-light btn right" @click.prevent="signUp">Register</button>
         </div>
       </form>
     </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -42,24 +42,17 @@ export default {
       errorMessage: ''
     }
   },
+  computed: {
+    ...mapGetters({formError: 'getFormError'})
+  },
   methods: {
-    login () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
-        console.log(user)
-      }, err => {
-        console.error(err)
-
-        this.errorMessage = err.message
-      })
+    ...mapActions(['login', 'register']),
+    async signIn () {
+      await this.login({email: this.email, password: this.password})
+      this.$router.push({path: '/home'})
     },
-    register () {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user => {
-        console.log(user)
-      }, err => {
-        console.error(err)
-
-        this.errorMessage = err.message
-      })
+    async signUp () {
+      await this.register({email: this.email, password: this.password})
     }
   }
 }
