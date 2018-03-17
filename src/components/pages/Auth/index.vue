@@ -49,10 +49,11 @@ export default {
     ...mapActions(['login', 'register']),
     async signIn () {
       await this.login({email: this.email, password: this.password})
-      this.$router.push({path: '/home'})
+      this.$router.push({ name: 'Home' })
     },
     async signUp () {
       await this.register({email: this.email, password: this.password})
+      this.$router.push({ name: 'Home' })
     }
   }
 }

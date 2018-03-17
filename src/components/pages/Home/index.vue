@@ -1,16 +1,16 @@
 <template>
   <div>
-    <navbar></navbar>
+    <v-header></v-header>
     <h1>Home</h1>
   </div>
 </template>
 
 <script>
-import Navbar from '../../shared/Header'
+import VHeader from '../../shared/VHeader'
 
 export default {
   components: {
-    navbar: Navbar
+    VHeader
   }
 }
 </script>

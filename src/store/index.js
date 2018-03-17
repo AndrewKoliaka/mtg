@@ -24,9 +24,9 @@ export const actions = {
     try {
       const user = await firebase.auth().signInWithEmailAndPassword(email, password)
       commit(types.USER_LOGIN)
-      console.log('login', user)
       return user
     } catch (err) {
+      commit(types.SET_FORM_ERROR, err.message)
       throw err
     }
   },
@@ -34,7 +34,6 @@ export const actions = {
     try {
       const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
       commit(types.USER_LOGIN)
-      console.log('register', user)
       return user
     } catch (err) {
       commit(types.SET_FORM_ERROR, err.message)
@@ -45,7 +44,6 @@ export const actions = {
     try {
       const res = await firebase.auth().signOut()
       commit(types.USER_LOGOUT)
-      console.log('logout', res)
       return res
     } catch (err) {
       throw err

@@ -16,8 +16,8 @@ export default [
     path: '/home',
     name: 'Home',
     component: Home,
-    redirect: to => {
-      return store.getters.isLoggedIn ? '/home' : '/auth'
+    beforeEnter: (to, from, next) => {
+      store.getters.isLoggedIn ? next() : next('/auth')
     }
   },
   {
