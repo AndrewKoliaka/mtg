@@ -21,6 +21,9 @@ export const getters = {
   },
   getDBReference (state) {
     return state.db
+  },
+  getDecks (state) {
+    return state.decks
   }
 }
 
